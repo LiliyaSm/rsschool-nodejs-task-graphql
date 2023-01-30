@@ -18,6 +18,8 @@ npm run test
 
    Get gql requests examples:
 
+   **!NB! id are provided as an example, real id numbers should be taken from the database!**
+
    2.1. Get users, profiles, posts, memberTypes - 4 operations in one query.
 
 ```
@@ -175,6 +177,11 @@ query {
         id
         firstName
         lastName
+          profile {
+          id
+          country
+          street
+          }
         }
       profile{
         id
@@ -202,6 +209,11 @@ query($id: ID!) {
         id
         firstName
         lastName
+          posts{
+            id
+            title
+            content
+        }
     }
   }
 }
@@ -477,7 +489,7 @@ GraphQL variables:
 ```
 
 Unsubscribe from
-The input contains the **unsubscribed user** data that is similar to REST request.
+The input contains the **unsubscribed user** id that is similar to REST request.
 
 ```
 mutation($id: String!, $unsubscribed: SubscriberInput!) {

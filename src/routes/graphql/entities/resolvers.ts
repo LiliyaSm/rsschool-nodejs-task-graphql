@@ -36,7 +36,7 @@ export const getMemberType = async (
   const profile = await context.loader.profile.load(parent.id);
 
   if (profile) {
-    const memberType = await context.loader.memberType.load(profile.memberTypeId);
+    const memberType = await context.loader.memberType.load(profile.memberTypeId)
     return memberType;
   }
   return null;
@@ -56,7 +56,7 @@ export const getUserSubscribedTo = async (
   context: IContext
 ): Promise<UserEntity[]> => {
   return (await context.loader.users.load('')).filter(
-    (user) => user.id == parent.id
+    (user) => parent.subscribedToUserIds.includes(user.id)
   );
 };
 
