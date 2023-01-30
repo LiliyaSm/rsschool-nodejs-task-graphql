@@ -5,12 +5,11 @@ import {
   GraphQLString,
   GraphQLNonNull,
   GraphQLObjectType,
-  //   GraphQLInputObjectType,
 } from 'graphql';
 import {
   getAllProfiles,
-  getProfile,
-  getAllPosts,
+  getProfileByUserId,
+  getAllPostsByUserId,
   getMemberType,
   getAllMemberTypes,
   getUserSubscribedTo,
@@ -69,11 +68,11 @@ export const userType: GraphQLObjectType = new GraphQLObjectType({
     },
     profile: {
       type: profileType,
-      resolve: getProfile,
+      resolve: getProfileByUserId,
     },
     posts: {
       type: new GraphQLList(postType),
-      resolve: getAllPosts,
+      resolve: getAllPostsByUserId,
     },
     memberType: {
       type: memberTypeType,

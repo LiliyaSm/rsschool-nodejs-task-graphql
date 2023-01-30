@@ -12,26 +12,20 @@ export const getAllProfiles = async (
   return await context.fastify.db.profiles.findMany();
 };
 
-export const getProfile = async (
+export const getProfileByUserId = async (
   parent: UserEntity,
   args: unknown,
   context: IContext
 ): Promise<ProfileEntity | null> => {
-  return await context.fastify.db.profiles.findOne({
-    key: 'userId',
-    equals: parent.id,
-  });
+  return await context.loader.profile.load(parent.id);
 };
 
-export const getAllPosts = async (
+export const getAllPostsByUserId = async (
   parent: UserEntity,
   args: unknown,
   context: IContext
 ): Promise<PostEntity[]> => {
-  return await context.fastify.db.posts.findMany({
-    key: 'userId',
-    equals: parent.id,
-  });
+  return context.loader.posts.load(parent.id);
 };
 
 export const getMemberType = async (
@@ -39,15 +33,10 @@ export const getMemberType = async (
   args: unknown,
   context: IContext
 ): Promise<MemberTypeEntity | null> => {
-  const profile = await context.fastify.db.profiles.findOne({
-    key: 'userId',
-    equals: parent.id,
-  });
+  const profile = await context.loader.profile.load(parent.id);
+
   if (profile) {
-    const memberType = await context.fastify.db.memberTypes.findOne({
-      key: 'id',
-      equals: profile.memberTypeId,
-    });
+    const memberType = await context.loader.memberType.load(profile.memberTypeId);
     return memberType;
   }
   return null;
