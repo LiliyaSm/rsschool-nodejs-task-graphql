@@ -321,6 +321,8 @@ GraphQL variables:
 ```
 
 2.10. Create post.
+
+```
 mutation($post: NewPostInput!) {
     createPost(input: $post) {
     id
@@ -329,6 +331,7 @@ mutation($post: NewPostInput!) {
     content
   }
 }
+```
 
 ```json
 {
