@@ -482,9 +482,11 @@ mutation($id: String!, $unsubscribed: SubscriberInput!) {
 }
 ```
 
-3. Inside '.\src\routes\graphql\loader.ts' there is a createLoader function for loader implementation:[Link]()
-I've applied it to context here: [Link]()
-Call in resolvers: [Link]()
+3. Inside '.\src\routes\graphql\loader.ts' there is a createLoader function for loader implementation:[Link](https://github.com/LiliyaSm/rsschool-nodejs-task-graphql/blob/7665b47dbf9bfeb5283269f784885ace7fd17d92/src/routes/graphql/loader.ts#L13)
+
+I've applied it to context here: [Link](https://github.com/LiliyaSm/rsschool-nodejs-task-graphql/blob/7665b47dbf9bfeb5283269f784885ace7fd17d92/src/routes/graphql/index.ts#L42)
+
+Call in resolvers: [Link](https://github.com/LiliyaSm/rsschool-nodejs-task-graphql/blob/7665b47dbf9bfeb5283269f784885ace7fd17d92/src/routes/graphql/entities/resolvers.ts#L69) [Link](https://github.com/LiliyaSm/rsschool-nodejs-task-graphql/blob/7665b47dbf9bfeb5283269f784885ace7fd17d92/src/routes/graphql/entities/resolvers.ts#L79)
 
 Before loader findMany function calls:
 ![](beforeLoader.jpg)
