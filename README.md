@@ -15,6 +15,7 @@ npm run test
 
 
 ## Graphql endpoints logic
+   Can be tested using POST request on endpoint http://localhost:3000/graphql
 
    Get gql requests examples:
 
@@ -116,12 +117,12 @@ query {
         title
         content
       }
-      profiles{
+      profile{
         id
         country
         street
       }
-      memberTypes{
+      memberType{
         id
         discount
         monthPostsLimit
@@ -515,17 +516,23 @@ mutation($id: String!, $unsubscribed: SubscriberInput!) {
 ## N+1 graphql problem solution with dataloader package:
 Inside '.\src\routes\graphql\loader.ts' there is a createLoader function for loader implementation:
 
-[Link](https://github.com/LiliyaSm/rsschool-nodejs-task-graphql/blob/7665b47dbf9bfeb5283269f784885ace7fd17d92/src/routes/graphql/loader.ts#L13)
+[Link](https://github.com/LiliyaSm/rsschool-nodejs-task-graphql/blob/238e21095e1ef21618972b80e09ab46cff561aed/src/routes/graphql/loader.ts#L19)
 
 I've applied it to context here: 
 
-[Link](https://github.com/LiliyaSm/rsschool-nodejs-task-graphql/blob/7665b47dbf9bfeb5283269f784885ace7fd17d92/src/routes/graphql/index.ts#L42)
+[Link](https://github.com/LiliyaSm/rsschool-nodejs-task-graphql/blob/238e21095e1ef21618972b80e09ab46cff561aed/src/routes/graphql/index.ts#L42)
 
-Call in resolvers: 
+Calls in resolvers: 
 
-[Link](https://github.com/LiliyaSm/rsschool-nodejs-task-graphql/blob/7665b47dbf9bfeb5283269f784885ace7fd17d92/src/routes/graphql/entities/resolvers.ts#L69) 
+[Link](https://github.com/LiliyaSm/rsschool-nodejs-task-graphql/blob/238e21095e1ef21618972b80e09ab46cff561aed/src/routes/graphql/entities/resolvers.ts#L58) 
 
-[Link](https://github.com/LiliyaSm/rsschool-nodejs-task-graphql/blob/7665b47dbf9bfeb5283269f784885ace7fd17d92/src/routes/graphql/entities/resolvers.ts#L79)
+[Link](https://github.com/LiliyaSm/rsschool-nodejs-task-graphql/blob/238e21095e1ef21618972b80e09ab46cff561aed/src/routes/graphql/entities/resolvers.ts#L69)
+
+[Link](https://github.com/nosbog/rsschool-nodejs-task-graphql/blob/fad94f7599a43333d497fadaa1ef03dbb7f090eb/src/routes/graphql/entities/resolvers.ts#L28)
+
+[Link](https://github.com/nosbog/rsschool-nodejs-task-graphql/blob/fad94f7599a43333d497fadaa1ef03dbb7f090eb/src/routes/graphql/entities/resolvers.ts#L20)
+
+[Link](https://github.com/nosbog/rsschool-nodejs-task-graphql/blob/fad94f7599a43333d497fadaa1ef03dbb7f090eb/src/routes/graphql/entities/resolvers.ts#L36)
 
 Before using data loader findMany function there were many calls:
 
@@ -536,7 +543,11 @@ After using data loader findMany function has only one call:
 ![](afterLoder.jpg)
 
 ## Depth validation
-Inside '.\src\routes\graphql\index.ts' there is a isDepthValid function for depth validation. [Link to place where it was used](https://github.com/LiliyaSm/rsschool-nodejs-task-graphql/blob/7c5c6c4c080b2e370046b9fdc04451fd311b5d09/src/routes/graphql/index.ts#L36)
+Inside '.\src\routes\graphql\index.ts' there is a isDepthValid function for depth validation. 
+
+[Implementation](https://github.com/LiliyaSm/rsschool-nodejs-task-graphql/blob/7c5c6c4c080b2e370046b9fdc04451fd311b5d09/src/routes/graphql/index.ts#L11)
+
+[Link to place where it was used](https://github.com/LiliyaSm/rsschool-nodejs-task-graphql/blob/7c5c6c4c080b2e370046b9fdc04451fd311b5d09/src/routes/graphql/index.ts#L36)
 
 
 ### Tasks:
