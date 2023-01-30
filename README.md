@@ -463,7 +463,8 @@ GraphQL variables:
 
 ```
 
-2.16. Subscribe to 
+2.16. Subscribe to
+
 The input contains the **subscriber** data that is similar to REST request.
 
 ```
@@ -534,7 +535,7 @@ Calls in resolvers:
 
 [Link](https://github.com/nosbog/rsschool-nodejs-task-graphql/blob/fad94f7599a43333d497fadaa1ef03dbb7f090eb/src/routes/graphql/entities/resolvers.ts#L36)
 
-Before using data loader findMany function there were many calls:
+Before using data loader findMany function had many calls:
 
 ![](beforeLoader.jpg)
 
