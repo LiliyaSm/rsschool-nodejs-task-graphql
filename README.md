@@ -8,14 +8,15 @@ Install the dependencies:
 npm install
 ```
 
-1. Run test - 100%
+1. Run test to check restful endpoints - 100%
 ```
 npm run test
 ```
 
-2.
-Get gql requests examples:
 
+2.Graphql endpoints logic:
+
+Get gql requests examples:
 
 2.1. Get users, profiles, posts, memberTypes - 4 operations in one query.
 
@@ -496,18 +497,20 @@ mutation($id: String!, $unsubscribed: SubscriberInput!) {
 }
 ```
 
-3. 
+3. N+1 graphql problem solution with dataloader package:
 Inside '.\src\routes\graphql\loader.ts' there is a createLoader function for loader implementation:[Link](https://github.com/LiliyaSm/rsschool-nodejs-task-graphql/blob/7665b47dbf9bfeb5283269f784885ace7fd17d92/src/routes/graphql/loader.ts#L13)
 
 I've applied it to context here: [Link](https://github.com/LiliyaSm/rsschool-nodejs-task-graphql/blob/7665b47dbf9bfeb5283269f784885ace7fd17d92/src/routes/graphql/index.ts#L42)
 
-Call in resolvers: [Link](https://github.com/LiliyaSm/rsschool-nodejs-task-graphql/blob/7665b47dbf9bfeb5283269f784885ace7fd17d92/src/routes/graphql/entities/resolvers.ts#L69) [Link](https://github.com/LiliyaSm/rsschool-nodejs-task-graphql/blob/7665b47dbf9bfeb5283269f784885ace7fd17d92/src/routes/graphql/entities/resolvers.ts#L79)
+Call in resolvers: 
+[Link](https://github.com/LiliyaSm/rsschool-nodejs-task-graphql/blob/7665b47dbf9bfeb5283269f784885ace7fd17d92/src/routes/graphql/entities/resolvers.ts#L69) 
+[Link](https://github.com/LiliyaSm/rsschool-nodejs-task-graphql/blob/7665b47dbf9bfeb5283269f784885ace7fd17d92/src/routes/graphql/entities/resolvers.ts#L79)
 
-Before loader findMany function calls:
+Before using data loader findMany function there were many calls:
 
 ![](beforeLoader.jpg)
 
-After loader findMany function call (only one):
+After using data loader findMany function has only one call:
 
 ![](afterLoder.jpg)
 
