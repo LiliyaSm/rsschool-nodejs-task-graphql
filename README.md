@@ -19,7 +19,7 @@ npm run test
 
    Get gql requests examples:
 
-   **!NB! id are provided as an example, real id numbers should be taken from the database!**
+   **!NB! ids numbers are provided as an example, real id numbers should be taken from the database!**
 
    2.1. Get users, profiles, posts, memberTypes - 4 operations in one query.
 
