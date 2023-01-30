@@ -5,6 +5,7 @@ import { graphql, parse } from 'graphql';
 import * as depthLimit from 'graphql-depth-limit';
 import { validate } from 'graphql/validation';
 import { FastifyReply } from 'fastify';
+import { getContext } from './loader';
 
 const DEPTH_LIMIT = 6;
 
@@ -13,9 +14,9 @@ const isDepthValid = (query: string | undefined, reply: FastifyReply) => {
   const validationErrors = validate(graphqlSchema, document, [
     depthLimit(DEPTH_LIMIT),
   ]);
-  if (validationErrors.length > 0){
+  if (validationErrors.length > 0) {
     reply.statusCode = 200;
-    reply.send({errors: ['Depth limit exceeded']});
+    reply.send({ errors: ['Depth limit exceeded'] });
     return false;
   }
   return true;
@@ -33,12 +34,12 @@ const plugin: FastifyPluginAsyncJsonSchemaToTs = async (
     },
     async (request, reply) => {
       const { variables, query } = request.body;
-      if(isDepthValid(query, reply)){
+      if (isDepthValid(query, reply)) {
         return await graphql({
           schema: graphqlSchema,
           source: String(query),
           variableValues: variables,
-          contextValue: fastify,
+          contextValue: getContext(fastify),
         });
       }
     }

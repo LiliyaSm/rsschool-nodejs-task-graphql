@@ -2,30 +2,30 @@ import { UserEntity } from '../../../utils/DB/entities/DBUsers';
 import { ProfileEntity } from '../../../utils/DB/entities/DBProfiles';
 import { PostEntity } from '../../../utils/DB/entities/DBPosts';
 import { MemberTypeEntity } from '../../../utils/DB/entities/DBMemberTypes';
-import { FastifyInstance } from 'fastify';
+import { IContext } from '../loader';
 
 export const createUser = async (
   parent: UserEntity,
   args: { input: Omit<UserEntity, 'id' | 'subscribedToUserIds'> },
-  context: FastifyInstance
+  context: IContext
 ): Promise<UserEntity | null> => {
-  return await context.db.users.create(args.input);
+  return await context.fastify.db.users.create(args.input);
 };
 
 export const createProfile = async (
   parent: UserEntity,
   args: { input: Omit<ProfileEntity, 'id'> },
-  context: FastifyInstance
+  context: IContext
 ): Promise<ProfileEntity | null> => {
-  return await context.db.profiles.create(args.input);
+  return await context.fastify.db.profiles.create(args.input);
 };
 
 export const createPost = async (
   parent: UserEntity,
   args: { input: Omit<PostEntity, 'id'> },
-  context: FastifyInstance
+  context: IContext
 ): Promise<PostEntity | null> => {
-  return await context.db.posts.create(args.input);
+  return await context.fastify.db.posts.create(args.input);
 };
 
 export const updateUser = async (
@@ -34,14 +34,14 @@ export const updateUser = async (
     id: string;
     input: Partial<Omit<UserEntity, 'id' | 'subscribedToUserIds'>>;
   },
-  context: FastifyInstance
+  context: IContext
 ): Promise<UserEntity | null> => {
   const id = args.id;
-  const user = await context.db.users.findOne({ key: 'id', equals: id });
+  const user = await context.fastify.db.users.findOne({ key: 'id', equals: id });
   if (!user) {
     throw new Error('User not found');
   } else {
-    const updatedUser = await context.db.users.change(id, args.input);
+    const updatedUser = await context.fastify.db.users.change(id, args.input);
     return updatedUser;
   }
 };
@@ -49,17 +49,17 @@ export const updateUser = async (
 export const updateProfile = async (
   parent: UserEntity,
   args: { id: string; input: Partial<Omit<ProfileEntity, 'id' | 'UserId'>> },
-  context: FastifyInstance
+  context: IContext
 ): Promise<ProfileEntity | null> => {
   const { id, input } = args;
-  const profile = await context.db.profiles.findOne({
+  const profile = await context.fastify.db.profiles.findOne({
     key: 'id',
     equals: id,
   });
   if (!profile) {
     throw new Error('Profile not found');
   } else {
-    const updatedProfile = await context.db.profiles.change(id, input);
+    const updatedProfile = await context.fastify.db.profiles.change(id, input);
     return updatedProfile;
   }
 };
@@ -67,14 +67,14 @@ export const updateProfile = async (
 export const updatePost = async (
   parent: UserEntity,
   args: { id: string; input: Partial<Omit<PostEntity, 'id' | 'UserId'>> },
-  context: FastifyInstance
+  context: IContext
 ) => {
   const { id, input } = args;
-  const post = await context.db.posts.findOne({ key: 'id', equals: id });
+  const post = await context.fastify.db.posts.findOne({ key: 'id', equals: id });
   if (!post) {
     throw new Error('Post not found');
   } else {
-    const updatedPost = await context.db.posts.change(id, input);
+    const updatedPost = await context.fastify.db.posts.change(id, input);
     return updatedPost;
   }
 };
@@ -82,17 +82,17 @@ export const updatePost = async (
 export const updateMemberType = async (
   parent: UserEntity,
   args: { id: string; input: Partial<Omit<MemberTypeEntity, 'id'>> },
-  context: FastifyInstance
+  context: IContext
 ) => {
   const { id, input } = args;
-  const memberType = await context.db.memberTypes.findOne({
+  const memberType = await context.fastify.db.memberTypes.findOne({
     key: 'id',
     equals: id,
   });
   if (!memberType) {
     throw new Error('MemberType not found');
   } else {
-    const updatedMemberTypes = await context.db.memberTypes.change(id, input);
+    const updatedMemberTypes = await context.fastify.db.memberTypes.change(id, input);
     return updatedMemberTypes;
   }
 };
@@ -100,13 +100,13 @@ export const updateMemberType = async (
 export const subscribeUserTo = async (
   parent: UserEntity,
   args: { id: string; input: Pick<UserEntity, 'id'> },
-  context: FastifyInstance
+  context: IContext
 ) => {
   const {
     id,
     input: { id: subscribeUserId },
   } = args;
-  const user = await context.db.users.findOne({
+  const user = await context.fastify.db.users.findOne({
     key: 'id',
     equals: subscribeUserId,
   });
@@ -116,7 +116,7 @@ export const subscribeUserTo = async (
     throw new Error('User already subscribed!');
   } else{
     const subscribedToUserIds = [...user.subscribedToUserIds, id];
-    const updatedUser = await context.db.users.change(subscribeUserId, {
+    const updatedUser = await context.fastify.db.users.change(subscribeUserId, {
       subscribedToUserIds,
     });
     return updatedUser;
@@ -126,13 +126,13 @@ export const subscribeUserTo = async (
 export const unsubscribeUser = async (
   parent: UserEntity,
   args: { id: string; input: Pick<UserEntity, 'id'> },
-  context: FastifyInstance
+  context: IContext
 ) => {
   const {
     id,
     input: { id: unsubscribeUserId },
   } = args;
-  const user = await context.db.users.findOne({
+  const user = await context.fastify.db.users.findOne({
     key: 'id',
     equals: unsubscribeUserId,
   });
@@ -144,7 +144,7 @@ export const unsubscribeUser = async (
     const subscribedToUserIds = user.subscribedToUserIds.filter(
       (el) => id !== el
     );
-    const updatedUser = await context.db.users.change(unsubscribeUserId, {
+    const updatedUser = await context.fastify.db.users.change(unsubscribeUserId, {
       subscribedToUserIds,
     });
     return updatedUser;

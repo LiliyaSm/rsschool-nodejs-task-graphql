@@ -212,11 +212,31 @@ query {
           id
           firstName
           lastName
+          subscribedToUser {
+            id
+            firstName
+            lastName
+          }
+          userSubscribedTo {
+            id
+            firstName
+            lastName
+          }
       }
       subscribedToUser {
           id
           firstName
           lastName
+          subscribedToUser {
+            id
+            firstName
+            lastName
+          }
+          userSubscribedTo {
+            id
+            firstName
+            lastName
+          }
       }
   }
 }
@@ -461,6 +481,16 @@ mutation($id: String!, $unsubscribed: SubscriberInput!) {
   }
 }
 ```
+
+3. Inside '.\src\routes\graphql\loader.ts' there is a createLoader function for loader implementation:[Link]()
+I've applied it to context here: [Link]()
+Call in resolvers: [Link]()
+
+Before loader findMany function calls:
+![](beforeLoader.jpg)
+
+After loader findMany function call (only one):
+![](afterLoder.jpg)
 
 4. Inside '.\src\routes\graphql\index.ts' there is a isDepthValid function for depth validation. [Link to place where it was used](https://github.com/LiliyaSm/rsschool-nodejs-task-graphql/blob/7c5c6c4c080b2e370046b9fdc04451fd311b5d09/src/routes/graphql/index.ts#L36)
 
