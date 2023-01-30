@@ -114,12 +114,12 @@ query {
         title
         content
       }
-      profiles{
+      profile{
         id
         country
         street
       }
-      memberTypes{
+      memberType{
         id
         discount
         monthPostsLimit
@@ -509,11 +509,17 @@ I've applied it to context here:
 
 [Link](https://github.com/LiliyaSm/rsschool-nodejs-task-graphql/blob/7665b47dbf9bfeb5283269f784885ace7fd17d92/src/routes/graphql/index.ts#L42)
 
-Call in resolvers: 
+Calls in resolvers: 
 
 [Link](https://github.com/LiliyaSm/rsschool-nodejs-task-graphql/blob/7665b47dbf9bfeb5283269f784885ace7fd17d92/src/routes/graphql/entities/resolvers.ts#L69) 
 
 [Link](https://github.com/LiliyaSm/rsschool-nodejs-task-graphql/blob/7665b47dbf9bfeb5283269f784885ace7fd17d92/src/routes/graphql/entities/resolvers.ts#L79)
+
+[Link](https://github.com/nosbog/rsschool-nodejs-task-graphql/blob/fad94f7599a43333d497fadaa1ef03dbb7f090eb/src/routes/graphql/entities/resolvers.ts#L28)
+
+[Link](https://github.com/nosbog/rsschool-nodejs-task-graphql/blob/fad94f7599a43333d497fadaa1ef03dbb7f090eb/src/routes/graphql/entities/resolvers.ts#L20)
+
+[Link](https://github.com/nosbog/rsschool-nodejs-task-graphql/blob/fad94f7599a43333d497fadaa1ef03dbb7f090eb/src/routes/graphql/entities/resolvers.ts#L36)
 
 Before using data loader findMany function there were many calls:
 
