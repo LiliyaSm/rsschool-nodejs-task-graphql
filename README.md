@@ -535,6 +535,8 @@ Calls in resolvers:
 
 [Link](https://github.com/nosbog/rsschool-nodejs-task-graphql/blob/fad94f7599a43333d497fadaa1ef03dbb7f090eb/src/routes/graphql/entities/resolvers.ts#L36)
 
+The loader accumulates calls within one entity, but it's important to consider that if several entities are called, then there will be function call for each individual entity (up to 4).
+
 Before using data loader findMany function had many calls:
 
 ![](beforeLoader.jpg)
