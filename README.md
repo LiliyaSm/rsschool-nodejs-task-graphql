@@ -552,6 +552,33 @@ Inside '.\src\routes\graphql\index.ts' there is a isDepthValid function for dept
 
 [Link to place where it was used](https://github.com/LiliyaSm/rsschool-nodejs-task-graphql/blob/7c5c6c4c080b2e370046b9fdc04451fd311b5d09/src/routes/graphql/index.ts#L36)
 
+gql query to reproduce:
+
+```
+query {
+  users {
+      id
+      userSubscribedTo {     
+          userSubscribedTo {
+            id
+            userSubscribedTo{
+                id
+                userSubscribedTo {
+                    id
+                    userSubscribedTo{
+                        id
+                        userSubscribedTo{
+                            id
+                        }
+                    }
+                }
+            }
+          }
+      }
+  }
+}
+```
+
 
 ### Tasks:
 
